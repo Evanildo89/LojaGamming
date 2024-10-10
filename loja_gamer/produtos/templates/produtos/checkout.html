@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'images/fundo.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
+            color: white;
+        }
+
+        .content {
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo preto semi-transparente para o formulário */
+            padding: 20px;
+            border-radius: 10px; /* Bordas arredondadas */
+            max-width: 600px;
+            margin: 0 auto; /* Centraliza o conteúdo */
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffffff; /* Cor do título */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Sombra para destacar o texto */
+        }
+
+        .stripe-button {
+            margin-top: 20px;
+        }
+
+        .error {
+            color: #ffdddd; /* Cor suave para mensagens de erro */
+            background-color: #cc0000; /* Fundo vermelho para mensagens de erro */
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .info {
+            margin-top: 20px;
+            color: #ffffff; /* Cor do texto de informações */
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Checkout</h1>
+        <p class="info">Total: €{{ total|floatformat:2 }}</p>
+        <p class="info">Aguarde, você será redirecionado para o Stripe para realizar o pagamento...</p>
+
+        <form action="{% url 'checkout' %}" method="post" id="checkout-form">
+            {% csrf_token %}
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="{{ public_key }}"
+                data-description="Compra na Loja Gaming"
+                data-amount="{{ total }}"
+                data-currency="eur"
+                data-locale="auto"></script>
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

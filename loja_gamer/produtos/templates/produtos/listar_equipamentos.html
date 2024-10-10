@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja de Jogos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'images/bg.jpg' %}");
+            background-color: #f4f4f4;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            font-family: "Allura", cursive;
+            font-weight: 600;
+            font-style: normal;
+            color: #4CAF50;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: 10px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        li span {
+            font-weight: bold;
+        }
+        a {
+            color: #4CAF50;
+        }
+        img {
+            width: 150px;  /* Define a largura */
+            height: 150px; /* Define a altura */
+            object-fit: cover; /* Ajusta a imagem sem distorção */
+            border-radius: 5px; /* Bordas arredondadas */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Equipamentos Disponíveis</h1>
+    <a href="{% url 'pagina_inicial' %}">voltar a pagina principal</a>
+    <ul>
+        {% for equipamento in equipamentos %}
+            <li>
+                <h2>Nome:{{ equipamento.nome }} (Marca: {{ equipamento.marca }})</h2>
+                <p>Descriçao: {{ equipamento.descricao }}</p>
+                <p>Compatibilidade: {{ equipamento.compatibilidade }}</p>
+                <p>Preço: € {{ equipamento.preco_unitario }}</p>
+                {% if equipamento.imagem %}
+                    <img src="{{ equipamento.imagem.url }}" alt="{{ equipamento.nome }}">
+                {% endif %}
+                <form action="{% url 'adicionar_ao_carrinho' equipamento.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Adicionar ao Carrinho</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'visualizar_carrinho' %}">Ver Carrinho</a>
+</body>
+</html>

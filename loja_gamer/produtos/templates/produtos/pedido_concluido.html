@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido Concluído</title>
+</head>
+<body>
+    <div class="content">
+        <h1>Pedido Concluído</h1>
+        <p>Obrigado por sua compra!</p>
+        <p>Seu pagamento foi processado com sucesso.</p>
+        {% if session %}
+            <p>Status do Pagamento: {{ payment_intent.status }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

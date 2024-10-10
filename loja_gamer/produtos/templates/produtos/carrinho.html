@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Carrinho de Compras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'images/bg.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
+            color: white; /* Muda a cor do texto para branco */
+        }
+
+        /* Adiciona uma camada de fundo semi-transparente para melhorar o contraste */
+        .content {
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo preto semi-transparente */
+            padding: 20px;
+            border-radius: 10px; /* Bordas arredondadas */
+            max-width: 800px;
+            margin: 0 auto; /* Centraliza o conteúdo */
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #ffffff; /* Cor do texto branco */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Sombra para destacar o texto */
+        }
+
+        ul {
+            list-style-type: none; /* Remove bullets da lista */
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1); /* Leve fundo branco para os itens */
+            color: #ffffff; /* Mantenha o texto branco */
+            border-radius: 5px; /* Bordas arredondadas nos itens */
+        }
+
+        .item-info {
+            flex-grow: 1; /* Ocupa todo o espaço restante para manter o ícone à esquerda */
+            text-align: left; /* Alinha o texto à esquerda */
+        }
+
+        .remove-icon {
+            margin-left: 350px;
+            color: #ff6347; /* Cor vermelha para o ícone de remoção */
+            cursor: pointer;
+        }
+
+        .remove-icon:hover {
+            color: #ff4500; /* Tom mais escuro ao passar o mouse */
+        }
+
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #4CAF50; /* Cor verde para o botão */
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #45a049; /* Tom mais escuro ao passar o mouse */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Carrinho de Compras</h1>
+        <ul>
+            {% for item in itens %}
+                <li>
+                    <div class="item-info">
+                        {{ item.produto.nome }} - {{ item.quantidade }} x € {{ item.preco_unitario }} = € {{ item.total }}
+                    </div>
+                    <a href="{% url 'remover_item' item.id %}" class="remove-icon">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <h2>Total: euros {{ total }}</h2>
+        <a href="{% url 'checkout' %}">Finalizar Compra</a>
+        <a href="{% url 'pagina_inicial' %}">voltar a pagina principal</a>
+    </div>
+</body>
+</html>

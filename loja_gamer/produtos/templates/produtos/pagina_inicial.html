@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - Loja Gaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'images/bg.jpg' %}");
+            background-size: cover; /* Faz a imagem cobrir toda a tela */
+            background-position: center; /* Centraliza a imagem */
+            background-attachment: fixed; /* Mantém a imagem fixa ao rolar a página */
+            background-color: #f4f4f4;
+            color: #4CAF50;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            font-family:"Yatra One", system-ui;
+            font-weight: 800;
+            font-size: 60px;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para o texto */
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: #4CAF50;
+        }
+
+        p {
+            font-family: "Allura", cursive;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 20px;
+         }
+
+        a {
+            font-family: "Allura", cursive;
+            font-weight: 400;
+            font-style: normal;
+            display: inline-block;
+            margin: 15px;
+            padding: 15px 30px;
+            text-decoration: none;
+            color: white;
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bem-vindo à Loja Gaming</h1>
+    <p>Explore nossos jogos e equipamentos!</p>
+
+    <a href="{% url 'listar_jogos' %}">Ver Jogos Disponíveis</a>
+    <a href="{% url 'listar_equipamentos' %}">Ver Equipamentos Disponíveis</a>
+
+</body>
+</html>
